@@ -1,5 +1,6 @@
 ---
 title: "index"
+runtime: shiny 
 output: html_document
 ---
 
@@ -20,8 +21,12 @@ library('dplyr')
 pal <- colorFactor(c("navy", "red","blue","green","yellow"), domain = c("ship", "pirate"))
 #qpal <- colorQuantile("RdYlBu", shooting.data$killed, n = 3)
 
+# remove rows with missing data 
+noNa = collison[complete.cases(collison),]
 
-d = data.frame(str_split(as.character(collison$Shape), " ") )
+d = data.frame(str_split(as.character(noNa$Shape), " ") )
+
+
 
 long = data.frame(unlist(d[2,]))
 lat = data.frame(unlist(d[1,]))
@@ -42,19 +47,14 @@ long = str_replace(long, "\\)",  "")
 
 ma = data.frame(lat,long)
 
-ma = ma[!apply(ma == "", 1, all),]
+noNa$lat = as.numeric(paste(ma$lat))
+noNa$lng = as.numeric(paste(ma$long))
 
 
-sample =  sample_n(ma, 100)
+sample =  sample_n(noNa, 500)
 
 
-lat = as.numeric(paste(sample$lat))
-lng = as.numeric(paste(sample$long))
-
-samp = data.frame(lat,lng)
-
-
-m <- leaflet(data = samp) %>%
+m <- leaflet(data = sample) %>%
   addTiles() %>% 
   addCircleMarkers(~lng, ~lat)
 
