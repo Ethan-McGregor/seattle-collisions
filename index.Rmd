@@ -12,13 +12,10 @@ collison <- read.csv('data/SDOT_Collisions.csv')
 ## Exploring Seattle's Car Collisions
 
 
-```{r map, warning=FALSE}
+```{r map, include=FALSE,echo=FALSE,warning=FALSE}
 library('leaflet')
 library('stringr')
 library('dplyr')
-## creates interactive map
-pal <- colorFactor(c("navy", "red","blue","green","yellow"), domain = c("ship", "pirate"))
-#qpal <- colorQuantile("RdYlBu", shooting.data$killed, n = 3)
 
 # remove rows with missing data 
 noNa = collison[complete.cases(collison),]
