@@ -1,6 +1,5 @@
 ---
 title: "index"
-runtime: shiny 
 output: html_document
 ---
 
@@ -58,9 +57,11 @@ m <- leaflet(data = sample) %>%
   addTiles() %>% 
   addCircleMarkers(~lng, ~lat)
 
-m
+
 
 ```
+`r m`
+
 
 
 
