@@ -12,7 +12,53 @@ collison <- read.csv('data/SDOT_Collisions.csv')
 ## Exploring Seattle's Car Collisions
 
 
-```{r main, warning=FALSE}
+```{r map, warning=FALSE}
+library('leaflet')
+library('stringr')
+library('dplyr')
+## creates interactive map
+pal <- colorFactor(c("navy", "red","blue","green","yellow"), domain = c("ship", "pirate"))
+#qpal <- colorQuantile("RdYlBu", shooting.data$killed, n = 3)
+
+
+d = data.frame(str_split(as.character(collison$Shape), " ") )
+
+long = data.frame(unlist(d[2,]))
+lat = data.frame(unlist(d[1,]))
+names(lat) = "lat"
+names(long) = "long"
+
+lat = as.vector(lat$lat)
+long = as.vector(long$long)
+
+
+lat = str_replace(lat, "\\(",  "")
+lat = str_replace(lat, "\\)",  "")
+lat = str_replace(lat, "\\,",  "")
+
+long = str_replace(long, "\\,",  "")
+long = str_replace(long, "\\(",  "")
+long = str_replace(long, "\\)",  "")
+
+ma = data.frame(lat,long)
+
+ma = ma[!apply(ma == "", 1, all),]
+
+
+sample =  sample_n(ma, 100)
+
+
+lat = as.numeric(paste(sample$lat))
+lng = as.numeric(paste(sample$long))
+
+samp = data.frame(lat,lng)
+
+
+m <- leaflet(data = samp) %>%
+  addTiles() %>% 
+  addCircleMarkers(~lng, ~lat)
+
+m
 
 ```
 
