@@ -13,7 +13,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       
       #slider to change number of variables
-      sliderInput("integer", "Number of Variables", min=2, max=10, value=2)
+      sliderInput("integer", "Number of collsions shown (In hundreds)", min=2, max=10, value=2)
 
     ),
     
