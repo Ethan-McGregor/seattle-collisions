@@ -1,6 +1,6 @@
 library(plotly)
 library(dplyr)
-
+library(tidyr)
 # read in dataset
 collision <- read.csv('../data/SDOT_Collisions.csv', stringsAsFactors = FALSE)
 
@@ -15,4 +15,8 @@ df <- df %>% filter(collision.WEATHER != "") %>% filter(collision.WEATHER != "Un
 # count collisions based on weather and road condition
 avg <- df %>% group_by(collision.WEATHER, collision.SEVERITYDESC) %>% summarise(count = n())
 
+p <- plot_ly(avg, x = ~collision.WEATHER,y = ~count, type = "bar") %>% 
+  layout(title = "Weather & Car Collision Severity", xaxis = list(title = "Weather"),
+         yaxis = list(title = "Count"))
+p
 
