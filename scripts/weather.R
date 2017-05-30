@@ -1,6 +1,7 @@
 library(plotly)
 library(dplyr)
-library(tidyr)
+library('tidyr')
+
 # read in dataset
 collision <- read.csv('../data/SDOT_Collisions.csv', stringsAsFactors = FALSE)
 
@@ -14,9 +15,19 @@ df <- df %>% filter(collision.WEATHER != "") %>% filter(collision.WEATHER != "Un
 
 # count collisions based on weather and road condition
 avg <- df %>% group_by(collision.WEATHER, collision.SEVERITYDESC) %>% summarise(count = n())
+df.wide <- spread(avg, collision.SEVERITYDESC, count) 
+get.col.names <- make.names(colnames(counts), unique=TRUE)
+colnames(df.wide) <- get.col.names
 
-p <- plot_ly(avg, x = ~collision.WEATHER,y = ~count, type = "bar") %>% 
+# display graph 
+# insert bar graph by severity
+p <- plot_ly(df.wide, x = ~collision.WEATHER, y = ~Fatality.Collision, type = "bar", marker = list(color = "Purple")) %>%
+  add_trace(y = ~Injury.Collision, name = "Injury Collision", marker = list(color = "Blue")) %>% 
+  add_trace(y = ~Property.Damage.Only.Collision, name = "Property Damage", marker = list(color = "Red")) %>% 
+  add_trace(y = ~Serious.Injury.Collision, name = "Serious Injury Collision", marker = list(color = "Yellow")) %>% 
   layout(title = "Weather & Car Collision Severity", xaxis = list(title = "Weather"),
-         yaxis = list(title = "Count"))
+         yaxis = list(title = "Count"), barmode = "Stack")
 p
+
+#average severity of crashes in certain weathers
 
