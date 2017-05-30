@@ -4,7 +4,7 @@ library('leaflet')
 library('stringr')
 library('dplyr')
 
-collison <- read.csv('./data/SDOT_Collisions.csv')
+collison <- read.csv('data/SDOT_Collisions.csv')
 
 ## Exploring Seattle's Car Collisions
 
@@ -45,3 +45,4 @@ noNa$hover <-  with(noNa, paste("Date: ", month.day, ", Killed: ", FATALITIES,',
 getData <- function(){
   return(noNa)
 }
+
