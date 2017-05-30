@@ -28,7 +28,7 @@ shinyServer(function(input, output) {
     output$heat <- renderLeaflet({
       leaflet(data = sliderValues()) %>%
         addTiles() %>% 
-        addCircleMarkers(~lng, ~lat)   })
+        addCircleMarkers(~lng, ~lat, color= "red", fill = FALSE,label = data$hover)   })
   }
   
   render()

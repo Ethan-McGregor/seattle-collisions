@@ -38,6 +38,8 @@ ma = data.frame(lat,long)
 noNa$lat = as.numeric(paste(ma$lat))
 noNa$lng = as.numeric(paste(ma$long))
 
+noNa$hover <-  with(noNa, paste("Date: ", INCDATE, ", Killed: ", FATALITIES,', Injured: ', INJURIES)) 
+
 # function used by server to get data
 getData <- function(){
   return(noNa)
