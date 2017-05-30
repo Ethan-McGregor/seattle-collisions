@@ -38,7 +38,8 @@ ma = data.frame(lat,long)
 noNa$lat = as.numeric(paste(ma$lat))
 noNa$lng = as.numeric(paste(ma$long))
 
-noNa$hover <-  with(noNa, paste("Date: ", INCDATE, ", Killed: ", FATALITIES,', Injured: ', INJURIES)) 
+month.day = sub(" .*$", '', noNa$INCDTTM)
+noNa$hover <-  with(noNa, paste("Date: ", month.day, ", Killed: ", FATALITIES,', Injured: ', INJURIES)) 
 
 # function used by server to get data
 getData <- function(){
