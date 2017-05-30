@@ -32,4 +32,11 @@ shinyServer(function(input, output) {
   }
   
   render()
+  
+  output$yearly <- renderPlotly({
+    source('scripts/yearly.R')
+    YearGraph()
+  })
+  
+  
 })

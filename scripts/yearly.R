@@ -54,7 +54,9 @@ YearGraph <- function(){
     layout(title = "Seattle Collisions 2004 - 2016", 
            xaxis = list(title = "Year"),
            yaxis = list(title = "# of Collisions"), 
-           barmode = "stack")
+           barmode = "stack",
+           margin = list(b = 200, t = 50),
+           height = 800)
   
   return(chart)
 }
