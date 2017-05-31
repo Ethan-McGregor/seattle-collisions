@@ -12,7 +12,27 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
                  
       sidebarPanel(
         #slider to change number of variables
-        sliderInput("integer", "Number of collsions shown (In hundreds)", min=2, max=10, value=2)),
+        sliderInput("integer", "Number of collsions shown (In hundreds)", min=2, max=10, value=2),
+        
+        h3("Filter by type of crash"),
+        
+        actionButton("standard", "All Crashes"),
+        actionButton("lt", "Left Turns") ,
+        actionButton("rt", "Right Turn"),
+        actionButton("sw", "Sideswipe"),
+        actionButton("cy", "Cycles"),
+        actionButton("ped", "Pedestrain"),
+        actionButton("an", "Angles"),
+        actionButton("re", "Rear Ended"),
+        
+        h3("Filter by Weather"),
+        
+        
+        actionButton("rain", "Raining") ,
+        actionButton("over", "Overcast"),
+        actionButton("clear", "Clear or Partly Cloudy"),
+        actionButton("sand", "Blowing Sand, Dirt or Snow")
+        ),
       
       mainPanel(
         #window for map view
