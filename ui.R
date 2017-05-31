@@ -36,10 +36,19 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
   ),
   
   tabPanel("Weather",
-           
-           mainPanel(
-            plotlyOutput('weather')
-           )
+      sidebarLayout(
+          sidebarPanel(
+                selectInput(inputId = "roadcond",
+                           label = "Road Condition",
+                           choices = c("Wet", "Dry", "Snow/Slush", "Sand/Mud/Dirt",
+                                       "Other", "All"),
+                           selected = "All")
+          ),
+             
+          mainPanel(
+              plotlyOutput('weather')
+          )
+      )
   ),
 
   
