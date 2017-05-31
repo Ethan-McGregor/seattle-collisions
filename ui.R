@@ -31,7 +31,14 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         actionButton("rain", "Raining") ,
         actionButton("over", "Overcast"),
         actionButton("clear", "Clear or Partly Cloudy"),
-        actionButton("sand", "Blowing Sand, Dirt or Snow")
+        actionButton("sand", "Blowing Sand, Dirt or Snow"),
+        
+        h3("Filter by Light Condition"),
+        
+        actionButton("day", "Daylight") ,
+        actionButton("dawn", "Dawn"),
+        actionButton("dusk", "Dusk"),
+        actionButton("dark", "Dark")
         ),
       
       mainPanel(

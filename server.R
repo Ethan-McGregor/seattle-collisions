@@ -65,6 +65,24 @@ shinyServer(function(input, output) {
   
  
   
+  #By Light Condition
+  observeEvent(input$day, {
+    dataType$data <- filter(dataType$data, LIGHTCOND == "Daylight")
+  })
+  
+  observeEvent(input$dawn, {
+    dataType$data <- filter(dataType$data, LIGHTCOND == "Dawn")
+  })
+  
+  observeEvent(input$dusk, {
+    dataType$data <- filter(dataType$data, LIGHTCOND == "Dusk")
+  })
+  
+  observeEvent(input$dark, {
+    dataType$data <- filter(dataType$data, LIGHTCOND == "Dark - Street Lights On")
+  })
+  
+  
   # will render heatmap
   render <- function(){
     output$heat <- renderLeaflet({
