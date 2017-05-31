@@ -41,7 +41,6 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
             plotlyOutput('weather')
            )
   ),
-  
 
   
   tabPanel("About",
