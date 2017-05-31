@@ -42,5 +42,8 @@ shinyServer(function(input, output) {
     source('scripts/weather.R')
     WeatherGraph()
   })
-  
-})
+
+  output$monthmap <- renderPlotly({
+    source('scripts/monthmap.R')
+    MonthGraph()
+})})

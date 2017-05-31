@@ -20,8 +20,7 @@ month.data <-  gsub( "/.*$", "", freq[,1] )
 month <- as.data.frame(table(month.data))
 
 # graph and components
-labels <- c("","month", "","", "", "", "", "", "", "", "", "")
-bar_graph <- plot_ly(month, x = month$month.data, y = month$Freq, type = 'bar', text = labels, 
+bar_graph <- plot_ly(month, x = month$month.data, y = month$Freq, type = 'bar',
                    marker = list(color = c('black', 'rgb(158,202,225)', 'black', 'black', 'black',
 'black', 'black', 'black', 'black', 'black', 'black', 'black'))) %>%
   layout(title = "Collisions by month",
