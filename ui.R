@@ -28,6 +28,13 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
     
   ),
   
+  tabPanel("Monthly",
+           
+           mainPanel(
+             plotlyOutput('monthmap')
+           )
+  ),
+  
   tabPanel("Weather",
            
            mainPanel(
@@ -35,12 +42,7 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
            )
   ),
   
-  tabPanel("Monthly",
-           
-           mainPanel(
-             plotlyOutput('monthmap')
-           )
-  ),
+
   
   tabPanel("About",
            
