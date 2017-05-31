@@ -5,7 +5,7 @@ library('tidyr')
 WeatherGraph <- function() {
   
   # read in dataset
-  collisions <- read.csv('../data/SDOT_Collisions.csv', stringsAsFactors = FALSE)
+  collisions <- read.csv('./data/SDOT_Collisions.csv', stringsAsFactors = FALSE)
   
   # choose needed columns
   df <- data.frame(collision$SEVERITYCODE, collision$SEVERITYDESC, collision$WEATHER, collision$ROADCOND, stringsAsFactors = FALSE)

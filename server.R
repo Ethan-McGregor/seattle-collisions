@@ -38,5 +38,9 @@ shinyServer(function(input, output) {
     YearGraph()
   })
   
+  output$weather <- renderPlotly({
+    source('scripts/weather.R')
+    WeatherGraph()
+  })
   
 })
