@@ -1,9 +1,11 @@
 
-#script gathers and cleens lat and long data
+#script gathers and cleans lat and long data
 source('scripts/map.R')
 
 # gets data
 data <- getData()
+
+collisions <- read.csv('./data/SDOT_Collisions.csv', stringsAsFactors = FALSE)
 
 shinyServer(function(input, output) {
   
@@ -40,7 +42,20 @@ shinyServer(function(input, output) {
   
   output$weather <- renderPlotly({
     source('scripts/weather.R')
-    WeatherGraph()
+    if (input$roadcond == "Wet") {
+      plot.data <- collisions %>% filter(ROADCOND == "Wet")
+    } else if (input$roadcond == "Dry") {
+      plot.data <- collisions %>% filter(ROADCOND == "Dry")
+    } else if (input$roadcond == "Snow/Slush") {
+      plot.data <- collisions %>% filter(ROADCOND == "Snow/Slush")
+    } else if (input$roadcond == "Sand/Mud/Dirt") {
+      plot.data <- collisions %>% filter(ROADCOND == "Sand/Mud/Dirt") 
+    } else if (input$roadcond == "Other") {
+      plot.data <- collisions %>% filter(ROADCOND == "Other")
+    } else {
+      plot.data <- collisions
+    }
+    WeatherGraph(plot.data)
   })
 
   output$monthmap <- renderPlotly({
