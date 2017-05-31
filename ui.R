@@ -33,7 +33,7 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         actionButton("clear", "Clear or Partly Cloudy"),
         actionButton("sand", "Blowing Sand, Dirt or Snow"),
         
-        h3("Filter by Light Condition"),
+        h3("Filter by light condition"),
         
         actionButton("day", "Daylight") ,
         actionButton("dawn", "Dawn"),
