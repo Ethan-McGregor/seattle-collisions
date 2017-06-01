@@ -24,9 +24,7 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         actionButton("ped", "Pedestrain"),
         actionButton("an", "Angles"),
         actionButton("re", "Rear Ended"),
-        h5("Reset to all crashes"),
-        actionButton("standard", "All Crashes"),
-        
+       
         h3("Filter by Weather"),
         
         
@@ -41,6 +39,10 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         actionButton("dawn", "Dawn"),
         actionButton("dusk", "Dusk"),
         actionButton("dark", "Dark")
+        
+        h5("Reset to all crashes"),
+        actionButton("standard", "All Crashes"),
+        
         ),
       
       mainPanel(
