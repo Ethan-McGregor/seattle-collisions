@@ -67,7 +67,7 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
           sidebarPanel(
                 selectInput(inputId = "roadcond",
                            label = "Road Condition",
-                           choices = c("Wet", "Dry", "All"),
+                           choices = c("Wet", "Dry", "Ice", "All"),
                            selected = "All")
           ),
              

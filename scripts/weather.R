@@ -7,13 +7,14 @@ WeatherGraph <- function(data) {
   # choose needed columns
   df <- data %>% select(SEVERITYCODE, SEVERITYDESC, WEATHER, ROADCOND)
   
-  # filter out rows with missing data
-  df <- df %>% filter(WEATHER != "") %>% filter(WEATHER != "Unknown") %>% 
-    filter(ROADCOND != "") %>% filter(ROADCOND != "Unknown") %>% 
-    filter(SEVERITYCODE != "0")
+  # filter out rows with missing data or not related
+  df <- df %>% filter(WEATHER != "") %>% filter(WEATHER != "Blowing Sand or Dirt or Snow") %>% 
+    filter(SEVERITYCODE != "0") %>% filter(WEATHER != "Severe Crosswind")
   
   # count collisions based on weather and road condition
   counts <- df %>% group_by(WEATHER, SEVERITYDESC) %>% summarise(count = n())
+  
+  # change dataframe from long to wide
   df.wide <- spread(counts, SEVERITYDESC, count)
   
   # get column names and fixes them
@@ -21,7 +22,7 @@ WeatherGraph <- function(data) {
   colnames(df.wide) <- get.col.names
   
 
-  # display graph 
+  # display graph using plotly
   bar.graph <- plot_ly(df.wide, x = ~WEATHER, y = ~Property.Damage.Only.Collision, name = "Property Damage Collision", marker = list(color = "navy"), type = "bar", 
                        name = "Property Damage Only Collision", hoverinfo = "text", text = ~paste(WEATHER, "<br>", Property.Damage.Only.Collision, "Property Damage Only Collisions")) %>%
     add_trace(y = ~Injury.Collision, name = "Injury Collision", marker = list(color = "slateblue"),
