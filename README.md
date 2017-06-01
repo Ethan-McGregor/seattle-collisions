@@ -1,5 +1,5 @@
 # Exploring Collisions in Seattle
-Our team created a interactive shiny application which displays visualizations of the data and help us better understand the dataset.
+Our team created a interactive shiny application which displays visualizations of data from collisions in Seattle to help better understand the dataset.
 
 ## The Dataset
 We worked with the SDOT Collisions dataset. It contains a record of all car collisions in Seattle from 2004 to 2016. Data for car collisions is provided by the Seattle Police Department and the Washington State Department of Transportation. The dataset provides details of the collisions such as location, type, injuries, weather, and other information. The dataset can be accessed [here](https://data.seattle.gov/Transportation/SDOT-Collisions/v7k9-7dn4).
