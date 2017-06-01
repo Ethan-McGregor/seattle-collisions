@@ -3,8 +3,7 @@ title: "Using Random Forests to Predict Injuries"
 output: html_document
 ---
 
-```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup, echo=FALSE, warning=FALSE}
 
 library("rpart")
 library('plotly')
@@ -101,6 +100,7 @@ class <- randomForest(col.INJURIES ~ col.DISTANCE + col.VEHCOUNT + col.PERSONCOU
 
 Now that our algorithm has "Learned" what collisions usuly cause injuries, we will have it predict if their was an injury for each collsion in the TESTING data. We use the prediciton function to do this and we just give it our classifier and the testing data.
 Then we compare it to the actual data that shows if there was an injury or not and have it compute the error. 
+
 ```{r prediciton, warning=FALSE}
 #Uses Classifier to predict wheather somone was hurt in a collision or not
 pre <- predict(class,test) 

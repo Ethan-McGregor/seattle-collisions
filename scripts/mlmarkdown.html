@@ -120,6 +120,36 @@ $(document).ready(function () {
 </div>
 
 
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## 
+## Attaching package: 'plotly'</code></pre>
+<pre><code>## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot</code></pre>
+<pre><code>## The following object is masked from 'package:stats':
+## 
+##     filter</code></pre>
+<pre><code>## The following object is masked from 'package:graphics':
+## 
+##     layout</code></pre>
+<pre><code>## 
+## Attaching package: 'dplyr'</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre><code>## randomForest 4.6-12</code></pre>
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>## 
+## Attaching package: 'randomForest'</code></pre>
+<pre><code>## The following object is masked from 'package:dplyr':
+## 
+##     combine</code></pre>
+<pre><code>## The following object is masked from 'package:ggplot2':
+## 
+##     margin</code></pre>
 <div id="splitting-data-into-traintest" class="section level2">
 <h2>Splitting data into Train/Test</h2>
 <p>Before this section we did a lot of work to the data to make it usable. Removing null values and turning string values into numbers so the algorithm can process them.</p>
@@ -158,7 +188,7 @@ rmse &lt;- rsq &lt;- sqrt( mean( (actual-pre)^2 , na.rm = TRUE ) )</code></pre>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>our algorithm predicted correctly that there was an injury 0.6134628</p>
+<p>our algorithm predicted correctly that there was an injury 0.6121073</p>
 </div>
 
 
