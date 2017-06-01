@@ -82,5 +82,10 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
            
            mainPanel(
              includeMarkdown('README.md')
+           )),
+  tabPanel("Random Forest",
+           
+           mainPanel(
+             includeMarkdown('scripts/mlmarkdown.rmd')
            ))
 ))

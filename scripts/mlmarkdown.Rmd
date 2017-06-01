@@ -1,0 +1,119 @@
+---
+title: "Using Random Forests to Predict Injuries"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library("rpart")
+library('plotly')
+library('shiny')
+library('leaflet')
+library('stringr')
+library('dplyr')
+library('randomForest')
+
+col <- read.csv('../data/SDOT_Collisions.csv',stringsAsFactors=FALSE )
+
+
+
+data = data.frame(col$INJURIES,col$DISTANCE,col$VEHCOUNT,col$PERSONCOUNT, col$ST_COLCODE, col$WEATHER,stringsAsFactors=FALSE )
+
+
+
+data$col.INJURIES <- replace(data$col.INJURIES , data$col.INJURIES != "0", 1)
+data$col.INJURIES <- replace(data$col.INJURIES , data$col.INJURIES != "1", 0)
+
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Raining", 0)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Overcast", 1)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Clear or Partly Cloudy", 2)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Unknown", 3)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Other", 4)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Snowing", 5)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Fog/Smog/Smoke", 6)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Sleet/Hail/Freezing Rain", 7)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Severe Crosswind", 8)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "Blowing Sand or Dirt or Snow", 9)
+data$col.WEATHER <- replace(data$col.WEATHER ,data$col.WEATHER == "", 3)
+
+
+data$col.WEATHER <- replace(data$col.WEATHER , is.na(data$col.WEATHER) , 0)
+data$col.INJURIES <- replace(data$col.INJURIES ,is.na(data$col.INJURIES), 0)
+data$col.DISTANCE <- replace(data$col.DISTANCE ,is.na(data$col.DISTANCE), 0)
+data$col.VEHCOUNT <- replace(data$col.VEHCOUNT , is.na(data$col.VEHCOUNT), 0)
+data$col.PERSONCOUNT <- replace(data$col.PERSONCOUNT , is.na(data$col.PERSONCOUNT) , 0)
+data$col.ST_COLCODE <- replace(data$col.ST_COLCODE ,is.na(data$col.ST_COLCODE ), 0)
+
+
+data$col.WEATHER <- factor(data$col.WEATHER)
+data$col.INJURIES <- factor(data$col.INJURIES)
+data$col.DISTANCE <- factor(data$col.DISTANCE)
+data$col.VEHCOUNT <- factor(data$col.VEHCOUNT)
+data$col.PERSONCOUNT <- factor(data$col.PERSONCOUNT)
+data$col.ST_COLCODE <- factor(data$col.ST_COLCODE)
+
+
+data = na.roughfix(data)
+#sample <- sample_n(data, 500)
+
+data$col.WEATHER <- as.numeric(data$col.WEATHER)
+data$col.INJURIES <- as.numeric(data$col.INJURIES)
+data$col.DISTANCE <- as.numeric(data$col.DISTANCE)
+data$col.VEHCOUNT <- as.numeric(data$col.VEHCOUNT)
+data$col.PERSONCOUNT <- as.numeric(data$col.PERSONCOUNT)
+data$col.ST_COLCODE <- as.numeric(data$col.ST_COLCODE)
+
+```
+
+## Splitting data into Train/Test
+Before this section we did a lot of work to the data to make it usable. Removing null values and turning string values into numbers so the algorithm can process them. 
+
+Here we put 70 percent of the data into the training set, and the other 30% we save for testing data.
+```{r cars, warning=FALSE}
+
+dt = sort(sample(nrow(data), nrow(data)*.7))
+
+#sampling data for train/test set
+trainindex <- sample(data, trunc(length(data)/2))
+
+#Make training data set
+train<-data[dt,]
+
+#Make Testing data
+test<-data[-dt,]
+
+```
+
+## Random Forest and classification
+
+We already split the data training and testing so now we have to "Train" our algorithm with our training data. 
+To do this we make a Random Forest classifier. In our classifier we fed it our training data and also the specific variables we want our algorithm to look at.(Distance of rash, car count, personc count, road condition and weather)
+
+```{r pressure,  warning=FALSE}
+#Creates Random FOrest Classifier
+class <- randomForest(col.INJURIES ~ col.DISTANCE + col.VEHCOUNT + col.PERSONCOUNT + col.ST_COLCODE + col.WEATHER,
+                     data = train, importance = TRUE,  ntree = 100)
+
+```
+
+## Prediction
+
+Now that our algorithm has "Learned" what collisions usuly cause injuries, we will have it predict if their was an injury for each collsion in the TESTING data. We use the prediciton function to do this and we just give it our classifier and the testing data.
+Then we compare it to the actual data that shows if there was an injury or not and have it compute the error. 
+```{r prediciton, warning=FALSE}
+#Uses Classifier to predict wheather somone was hurt in a collision or not
+pre <- predict(class,test) 
+
+#Gets values of whether an injury occured or not
+actual <- test$col.INJURIES
+
+#Finds Root Mean Squared Error to get effectivness of algorithm 
+preAct <- data.frame(pre,actual)
+rsq <- 1-sum((actual-pre)^2)/sum((actual-mean(actual))^2)
+rmse <- rsq <- sqrt( mean( (actual-pre)^2 , na.rm = TRUE ) )
+
+```
+
+## Conclusion
+our algorithm predicted correctly that there was an injury `r 1 - rmse`
