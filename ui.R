@@ -16,7 +16,7 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         
         h3("Filter by type of crash"),
         
-        actionButton("standard", "All Crashes"),
+        
         actionButton("lt", "Left Turns") ,
         actionButton("rt", "Right Turn"),
         actionButton("sw", "Sideswipe"),
@@ -24,6 +24,8 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         actionButton("ped", "Pedestrain"),
         actionButton("an", "Angles"),
         actionButton("re", "Rear Ended"),
+        h5("Reset to all crashes"),
+        actionButton("standard", "All Crashes"),
         
         h3("Filter by Weather"),
         

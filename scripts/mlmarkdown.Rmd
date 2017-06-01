@@ -1,9 +1,16 @@
 ---
 title: "Using Random Forests to Predict Injuries"
 output: html_document
+runtime: shiny
 ---
+# Exploring Collisions With Random Forests 
 
-```{r setup, echo=FALSE, warning=FALSE}
+
+## Setup
+
+To start we load the packages we will be using.
+Then we load our data from a CSV.
+```{r setup, warning=FALSE, message=FALSE}
 
 library("rpart")
 library('plotly')
@@ -15,12 +22,32 @@ library('randomForest')
 
 col <- read.csv('../data/SDOT_Collisions.csv',stringsAsFactors=FALSE )
 
+```
 
+
+
+## Cleaning the Data
+
+Our data set is very large, with over 40 columns. In order to keep ourselves from overfitting we have to pick only a few 
+of these variables to actully use in our algorithm.We do that by creating a new dataFrame called data and giving it the variables we want. 
+
+
+```{r  warning=FALSE, message=FALSE }
 
 data = data.frame(col$INJURIES,col$DISTANCE,col$VEHCOUNT,col$PERSONCOUNT, col$ST_COLCODE, col$WEATHER,stringsAsFactors=FALSE )
 
 
+```
 
+Now that we have the data we want to use we have to clean it.
+In order for our algorithm to process the data, we need to make a few changes to it.
+
+First of all we change all injuries from a numeric scale of how many people were hurt, to a bianary scale of just 1 for there were injuries or 0 there was none.
+
+Then we have to change our string variables to numbers by assinging each weather conditon to its own unique number.
+
+Once that is done have to remove rows with null or missing values.
+```{r warning=FALSE, message=FALSE}
 data$col.INJURIES <- replace(data$col.INJURIES , data$col.INJURIES != "0", 1)
 data$col.INJURIES <- replace(data$col.INJURIES , data$col.INJURIES != "1", 0)
 
@@ -66,9 +93,11 @@ data$col.ST_COLCODE <- as.numeric(data$col.ST_COLCODE)
 ```
 
 ## Splitting data into Train/Test
-Before this section we did a lot of work to the data to make it usable. Removing null values and turning string values into numbers so the algorithm can process them. 
 
-Here we put 70 percent of the data into the training set, and the other 30% we save for testing data.
+Now that we have our data cleaned we want to split it into two differenct parts.
+
+we put 70 percent of the data into the training set, and the other 30% we save for testing data.
+We do this to keep the testing set away from processing so we can use it for comparisons later. 
 ```{r cars, warning=FALSE}
 
 dt = sort(sample(nrow(data), nrow(data)*.7))
@@ -87,7 +116,7 @@ test<-data[-dt,]
 ## Random Forest and classification
 
 We already split the data training and testing so now we have to "Train" our algorithm with our training data. 
-To do this we make a Random Forest classifier. In our classifier we fed it our training data and also the specific variables we want our algorithm to look at.(Distance of rash, car count, personc count, road condition and weather)
+To do this we make a Random Forest classifier. In our classifier we fead it our training data and also the specific variables we want our algorithm to look at.(Distance of crash, car count, person count, road condition and weather)
 
 ```{r pressure,  warning=FALSE}
 #Creates Random FOrest Classifier
@@ -116,4 +145,5 @@ rmse <- rsq <- sqrt( mean( (actual-pre)^2 , na.rm = TRUE ) )
 ```
 
 ## Conclusion
-our algorithm predicted correctly that there was an injury `r 1 - rmse`
+61.2% of the time our algorithm predicted correctly that there was an injury or not an injruy, based on the data we gave it
+regarding each collision. 
