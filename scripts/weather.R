@@ -20,6 +20,7 @@ WeatherGraph <- function(data) {
   get.col.names <- make.names(colnames(df.wide), unique=TRUE)
   colnames(df.wide) <- get.col.names
   
+
   # display graph 
   bar.graph <- plot_ly(df.wide, x = ~WEATHER, y = ~Property.Damage.Only.Collision, name = "Property Damage Collision", marker = list(color = "navy"), type = "bar", 
                        name = "Property Damage Only Collision", hoverinfo = "text", text = ~paste(WEATHER, "<br>", Property.Damage.Only.Collision, "Property Damage Only Collisions")) %>%
@@ -30,7 +31,7 @@ WeatherGraph <- function(data) {
     add_trace(y = ~Serious.Injury.Collision, name = "Serious Injury Collision", marker = list(color = "blue"),
               hoverinfo = "text", text = ~paste(WEATHER, "<br>", Serious.Injury.Collision, "Serious Injury Collisions")) %>% 
     layout(title = "Weather & Car Collision Severity", xaxis = list(title = "Weather"),
-           yaxis = list(title = "# of Collisions"), barmode = "Group")
+           yaxis = list(title = "# of Collisions"), barmode = "Group", margin = list(b = 130))
     
   return(bar.graph)
 
