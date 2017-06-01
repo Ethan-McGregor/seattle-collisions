@@ -38,10 +38,10 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
         actionButton("day", "Daylight") ,
         actionButton("dawn", "Dawn"),
         actionButton("dusk", "Dusk"),
-        actionButton("dark", "Dark")
+        actionButton("dark", "Dark"),
         
         h5("Reset to all crashes"),
-        actionButton("standard", "All Crashes"),
+        actionButton("standard", "All Crashes")
         
         ),
       
