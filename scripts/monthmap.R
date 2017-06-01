@@ -52,6 +52,8 @@ return(morning_graph)
 
 # night graph function
 NightGraph <- function(){
+  dates <- data.frame(POSIXtime = seq(as.POSIXct('2004/1/1'),
+                                      as.POSIXct('2016/9/9 9:13:00 PM'), len = 183521))
   night_collisions <- subset(dates, format(POSIXtime, '%H') %in% c('20', '21', '22', '23'))
   night.data <- substr(night_collisions$POSIXtime, 11, 13)
   night.data <- as.data.frame(table(night.data))

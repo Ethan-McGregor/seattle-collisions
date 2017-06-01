@@ -69,7 +69,9 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
   tabPanel("Monthly",
            
            mainPanel(
-             plotlyOutput('monthmap')
+             plotlyOutput('monthmap'),
+             plotlyOutput('morning'),
+             plotlyOutput('night')
            )
   ),
   
