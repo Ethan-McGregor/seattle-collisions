@@ -32,7 +32,7 @@ WeatherGraph <- function(data) {
     add_trace(y = ~Serious.Injury.Collision, name = "Serious Injury Collision", marker = list(color = "blue"),
               hoverinfo = "text", text = ~paste(WEATHER, "<br>", Serious.Injury.Collision, "Serious Injury Collisions")) %>% 
     layout(title = "Weather & Car Collision Severity", xaxis = list(title = "Weather"),
-           yaxis = list(title = "# of Collisions"), barmode = "Group", margin = list(b = 130))
+           yaxis = list(title = "# of Collisions"), barmode = "Group", margin = list(b = 250, t = 50), height = 700)
     
   return(bar.graph)
 

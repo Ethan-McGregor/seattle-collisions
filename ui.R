@@ -47,11 +47,22 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
     )
   ),
   
-  tabPanel("By Year", fluid = TRUE,  
+  tabPanel("By Year",  
+           
+      sidebarLayout(
+                         
+          sidebarPanel(
+            
+            h3("Collisions by Year"),
+            p("This graph shows all collisions in Seattle between 2004 and 2016."),
+            p("Click on the legend to filter by collision severity. Hover over each column to view the exact number of collisions.")
+            
+          ),
 
-        mainPanel(fluid = TRUE,
+          mainPanel(
             plotlyOutput('yearly')
-        )
+          )
+      )
     
   ),
   
@@ -65,6 +76,9 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
   tabPanel("Weather",
       sidebarLayout(
           sidebarPanel(
+                h3("Collision Road Conditions and Weather"),
+                p("This graph shows the road conditions and weather for collisions in Seattle."),
+                p("Click on the legend to filter by collision severity. Hover over each column to view the exact number of collisions."),
                 selectInput(inputId = "roadcond",
                            label = "Road Condition",
                            choices = c("Wet", "Dry", "Ice", "All"),
@@ -78,14 +92,15 @@ shinyUI(navbarPage("Exploring Collisions in Seattle",
   ),
 
   
-  tabPanel("About",
-           
-           mainPanel(
-             includeMarkdown('README.md')
-           )),
   tabPanel("Random Forest",
            
            mainPanel(
              includeMarkdown('scripts/mlmarkdown.rmd')
+           )),
+  
+  tabPanel("About",
+           
+           mainPanel(
+             includeMarkdown('README.md')
            ))
 ))
