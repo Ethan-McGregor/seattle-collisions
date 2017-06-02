@@ -19,6 +19,7 @@ month.day = sub('/([^/]*)$', '', freq[,1])
 month.day <- as.data.frame(table(month.day))
 month.data <-  gsub( "/.*$", "", freq[,1] )
 month <- as.data.frame(table(month.data))
+month$month.data = as.numeric(month$month.data)
 month <- arrange(month, month.data)
 
 # graph and components
