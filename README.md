@@ -1,5 +1,3 @@
-Website Link: 
-
 # Exploring Collisions in Seattle
 Our team created a interactive shiny application which displays visualizations of data from collisions in Seattle to help better understand the dataset.You can find our Shiny website ['here'](https://ethan-mcgregor.shinyapps.io/seattle-collisions/)
 
